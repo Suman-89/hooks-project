@@ -36,7 +36,7 @@ export default function Navbar() {
   return (
     <>
       {token && (
-        <AppBar position="static" color="primary">
+        <AppBar position="static" color="light">
           <Toolbar sx={{ justifyContent: "space-between" }}>
             <Typography variant="h6" component="div">
               My App

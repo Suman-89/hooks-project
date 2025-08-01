@@ -22,13 +22,13 @@ const Update = React.lazy(() => import("./pages/cms/update/update"));
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const token = localStorage.getItem("token");
 
   useEffect(()=>{
-    const token = localStorage.getItem("token");
     if(token){
-      setIsAuthenticated(!!token);
+      setIsAuthenticated(true);
     }
-  },[])
+  },[token])
 
   function PrivateRoute({ children }) {
     const token =
