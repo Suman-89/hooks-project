@@ -10,12 +10,27 @@ import {
   Typography,
   Box,
   Button,
+  Grid,
 } from "@mui/material";
 import Navbar from "../layout/navbar/navbar";
 import AxiosInstance, { image } from "../../api/axios/axios";
 import { endPoints } from "../../api/endpoints/endpoint";
 import { toast } from "react-toastify";
 import SweetAlertComponent from "../../components/sweetAlert/sweetAlert";
+
+import { styled } from '@mui/material/styles';
+
+const Item = styled(Paper)(({ theme }) => ({
+  backgroundColor: '#fff',
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  textAlign: 'center',
+  color: (theme.vars ?? theme).palette.text.secondary,
+  ...theme.applyStyles('dark', {
+    backgroundColor: '#1A2027',
+  }),
+}));
+
 
 export default function List() {
   const [list, setList] = React.useState([]);
@@ -55,10 +70,15 @@ export default function List() {
   return (
     <>
       <Box sx={{ padding: 3 }}>
-        <Typography variant="h4" gutterBottom>
-          CMS List
-        </Typography>
-        <TableContainer component={Paper} sx={{ borderRadius: 2, boxShadow: 3 }}>
+        <Grid sx={{ display: 'flex', justifyContent: 'space-between' }}>
+          <Typography variant="h4" gutterBottom>
+            CMS List
+          </Typography>
+          <Button variant="contained" color="primary" href="/cms/create" sx={{ padding: 2, marginBottom: 2 }}>
+            Create
+          </Button>
+        </Grid>
+        {/* <TableContainer component={Paper} sx={{ borderRadius: 2, boxShadow: 3 }}>
           <Table>
             <TableHead sx={{ backgroundColor: "#f5f5f5" }}>
               <TableRow>
@@ -124,7 +144,25 @@ export default function List() {
               )}
             </TableBody>
           </Table>
-        </TableContainer>
+        </TableContainer> */}
+        <Box sx={{ width: '100%' }}>
+          <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+
+            {Array.isArray(list) && list.length > 0 ? (
+              list.map((row) => (
+                <Grid key={row._id} size={4}>
+                  <Item>1</Item>
+                </Grid>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell colSpan={7} align="center">
+                  No data available
+                </TableCell>
+              </TableRow>
+            )}
+          </Grid>
+        </Box>
 
         {open && (
           <SweetAlertComponent

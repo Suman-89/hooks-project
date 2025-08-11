@@ -49,9 +49,7 @@ export default function Navbar() {
               <Button color="inherit" component={Link} to="/cms/list">
                 List
               </Button>
-              <Button color="inherit" component={Link} to="/cms/create">
-                Create
-              </Button>
+             
 
               <IconButton color="inherit" onClick={handleLogout}>
                 <LogoutIcon />
