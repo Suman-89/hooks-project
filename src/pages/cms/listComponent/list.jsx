@@ -12,13 +12,13 @@ import {
   Button,
   Grid,
 } from "@mui/material";
-import Navbar from "../layout/navbar/navbar";
-import AxiosInstance, { image } from "../../api/axios/axios";
-import { endPoints } from "../../api/endpoints/endpoint";
+import AxiosInstance, { image } from "./../../../api/axios/axios";
+import { endPoints } from "../../../api/endpoints/endpoint";
 import { toast } from "react-toastify";
-import SweetAlertComponent from "../../components/sweetAlert/sweetAlert";
+import SweetAlertComponent from "../../../components/sweetAlert/sweetAlert";
 
 import { styled } from '@mui/material/styles';
+import RecipeReviewCard from "./card";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: '#fff',
@@ -36,7 +36,7 @@ export default function List() {
   const [list, setList] = React.useState([]);
   const [id, setId] = React.useState("");
   const [open, setOpen] = React.useState(false);
-
+console.log(list,'list')
   // Delete handler
   const handleRemove = async () => {
     const formData = new FormData();
@@ -150,8 +150,11 @@ export default function List() {
 
             {Array.isArray(list) && list.length > 0 ? (
               list.map((row) => (
+                // console.log(row)
                 <Grid key={row._id} size={4}>
-                  <Item>1</Item>
+                  <Item>
+                    <RecipeReviewCard row={row}/>
+                  </Item>
                 </Grid>
               ))
             ) : (

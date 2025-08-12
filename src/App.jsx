@@ -15,7 +15,7 @@ const Registration = React.lazy(() =>
 const Profile = React.lazy(() =>
   import("../src/pages/auth/profile_details/profile")
 );
-const List = React.lazy(() => import("../src/pages/cms/list"));
+const List = React.lazy(() => import("../src/pages/cms/listComponent/list"));
 const Create = React.lazy(() => import("../src/pages/cms/create"));
 // const Navbar = React.lazy(() => import("./pages/layout/navbar/navbar"));
 const Update = React.lazy(() => import("./pages/cms/update/update"));
