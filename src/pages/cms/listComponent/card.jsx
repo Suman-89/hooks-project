@@ -10,7 +10,10 @@ import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import { red } from "@mui/material/colors";
+import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
+import EditDocumentIcon from '@mui/icons-material/EditDocument';
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import DeleteIcon from '@mui/icons-material/Delete';
 import ShareIcon from "@mui/icons-material/Share";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
@@ -19,7 +22,7 @@ import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+import Select from '@mui/material/Select';
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
   return <IconButton {...other} />;
@@ -50,10 +53,10 @@ export default function RecipeReviewCard({ row }) {
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-const [age, setAge] = React.useState('');
+  const [action, setAction] = React.useState('');
 
   const handleChange = (event) => {
-    setAge(event.target.value);
+    setAction(event.target.value);
   };
 
   return (
@@ -87,38 +90,47 @@ const [age, setAge] = React.useState('');
         <IconButton aria-label="add to favorites">
           <FavoriteIcon />
         </IconButton>
-        <IconButton aria-label="share">
+        <IconButton aria-label="add to cart">
+          <ShoppingCartCheckoutIcon />
+        </IconButton>
+         <IconButton aria-label="edit">
+          <EditDocumentIcon />
+        </IconButton>
+         <IconButton aria-label="share">
           <ShareIcon />
         </IconButton>
-        <ExpandMore
+         <IconButton aria-label="delete">
+          <DeleteIcon />
+        </IconButton>
+        {/* <ExpandMore
           expand={expanded}
           onClick={handleExpandClick}
           aria-expanded={expanded}
           aria-label="show more"
         >
           <ExpandMoreIcon />
-        </ExpandMore>
+        </ExpandMore> */}
       </CardActions>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
+      {/* <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
           <Box sx={{ minWidth: 120 }}>
             <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label">Age</InputLabel>
+              <InputLabel id="demo-simple-select-label">More...</InputLabel>
               <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={age}
-                label="Age"
+                labelId="action-select-label"
+                id="action-select"
+                value={action}
+                label="Action"
                 onChange={handleChange}
               >
-                <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
+                <MenuItem value="add">Add to Cart</MenuItem>
+                <MenuItem value="edit">Edit</MenuItem>
+                <MenuItem value="delete">Delete</MenuItem>
               </Select>
             </FormControl>
           </Box>
         </CardContent>
-      </Collapse>
+      </Collapse> */}
     </Card>
   );
 }
