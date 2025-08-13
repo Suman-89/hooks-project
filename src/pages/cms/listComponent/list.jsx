@@ -74,8 +74,8 @@ console.log(list,'list')
           <Typography variant="h4" gutterBottom>
             CMS List
           </Typography>
-          <Button variant="contained" color="primary" href="/cms/create" sx={{ padding: 2, marginBottom: 2 }}>
-            Create
+          <Button variant="outlined" color="primary" href="/cms/create" sx={{ padding: 2, marginBottom: 2 }}>
+            Add New Item
           </Button>
         </Grid>
         {/* <TableContainer component={Paper} sx={{ borderRadius: 2, boxShadow: 3 }}>

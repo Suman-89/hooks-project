@@ -10,8 +10,8 @@ import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import { red } from "@mui/material/colors";
-import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 import EditDocumentIcon from '@mui/icons-material/EditDocument';
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import DeleteIcon from '@mui/icons-material/Delete';
 import ShareIcon from "@mui/icons-material/Share";
@@ -91,7 +91,7 @@ export default function RecipeReviewCard({ row }) {
           <FavoriteIcon />
         </IconButton>
         <IconButton aria-label="add to cart">
-          <ShoppingCartCheckoutIcon />
+          <AddShoppingCartIcon />
         </IconButton>
          <IconButton aria-label="edit">
           <EditDocumentIcon />

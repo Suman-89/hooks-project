@@ -19,6 +19,7 @@ const List = React.lazy(() => import("../src/pages/cms/listComponent/list"));
 const Create = React.lazy(() => import("../src/pages/cms/create"));
 // const Navbar = React.lazy(() => import("./pages/layout/navbar/navbar"));
 const Update = React.lazy(() => import("./pages/cms/update/update"));
+const Cart = React.lazy(()=> import("../src/pages/cms/components/cart/cart"))
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -70,6 +71,10 @@ function App() {
     {
       path: "/cms/update/:id",
       component: <Update />,
+    },
+    {
+      path: "/cart",
+      component: <Cart />,
     },
   ];
 
