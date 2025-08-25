@@ -4,14 +4,17 @@ import "./index.css";
 import App from "./App.jsx";
 import { ToastContainer } from "react-toastify";
 // import '@fontawesome/fontawesome-free/css/all.min.css';
-import CssBaseline from '@mui/material/CssBaseline';
-import { ThemeProvider } from '@mui/material/styles';
+import CssBaseline from "@mui/material/CssBaseline";
+import { ThemeProvider } from "@mui/material/styles";
 import theme from "./theme/theme.js";
+import { CartProvider } from "../context/context.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <ThemeProvider theme={theme}>
-    <App />
+      <CartProvider>
+        <App />
+      </CartProvider>
     </ThemeProvider>
     <ToastContainer />
   </StrictMode>

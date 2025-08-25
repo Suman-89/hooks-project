@@ -15,12 +15,12 @@ import {
   Divider,
   ListItemIcon,
 } from "@mui/material";
-import Tooltip from '@mui/material/Tooltip';
-
-import PersonAdd from '@mui/icons-material/PersonAdd';
-import Settings from '@mui/icons-material/Settings';
-import Logout from '@mui/icons-material/Logout';
-
+import Tooltip from "@mui/material/Tooltip";
+// import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
+import PersonAdd from "@mui/icons-material/PersonAdd";
+import Settings from "@mui/icons-material/Settings";
+import Logout from "@mui/icons-material/Logout";
 
 import LogoutIcon from "@mui/icons-material/Logout";
 
@@ -52,24 +52,33 @@ export default function Navbar() {
     }
   };
 
+
   return (
     <>
       {token && (
         <AppBar position="static" color="primary">
           <Toolbar sx={{ justifyContent: "space-between" }}>
             <Typography variant="h6" component="div">
-              My App
+              <Box
+                component="img"
+                src="/src/assets/logo.png"
+                alt="Logo"
+                sx={{ height: 100 }}
+              />
             </Typography>
 
             <Box sx={{ display: "flex", gap: 2 }}>
-              <Button color="inherit" component={Link} to="/auth/profile">
-                Profile
-              </Button>
               <Button color="inherit" component={Link} to="/cms/list">
-                List
+                Home
               </Button>
               <React.Fragment>
-                <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
+                <Box
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    textAlign: "center",
+                  }}
+                >
                   {/* <Typography sx={{ minWidth: 100 }}>Contact</Typography>
                   <Typography sx={{ minWidth: 100 }}>Profile</Typography> */}
                   <Tooltip title="Account settings">
@@ -77,9 +86,9 @@ export default function Navbar() {
                       onClick={handleClick}
                       size="small"
                       sx={{ ml: 2 }}
-                      aria-controls={open ? 'account-menu' : undefined}
+                      aria-controls={open ? "account-menu" : undefined}
                       aria-haspopup="true"
-                      aria-expanded={open ? 'true' : undefined}
+                      aria-expanded={open ? "true" : undefined}
                     >
                       <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
                     </IconButton>
@@ -95,52 +104,47 @@ export default function Navbar() {
                     paper: {
                       elevation: 0,
                       sx: {
-                        overflow: 'visible',
-                        filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+                        overflow: "visible",
+                        filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
                         mt: 1.5,
-                        '& .MuiAvatar-root': {
+                        "& .MuiAvatar-root": {
                           width: 32,
                           height: 32,
                           ml: -0.5,
                           mr: 1,
                         },
-                        '&::before': {
+                        "&::before": {
                           content: '""',
-                          display: 'block',
-                          position: 'absolute',
+                          display: "block",
+                          position: "absolute",
                           top: 0,
                           right: 14,
                           width: 10,
                           height: 10,
-                          bgcolor: 'background.paper',
-                          transform: 'translateY(-50%) rotate(45deg)',
+                          bgcolor: "background.paper",
+                          transform: "translateY(-50%) rotate(45deg)",
                           zIndex: 0,
                         },
                       },
                     },
                   }}
-                  transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-                  anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+                  transformOrigin={{ horizontal: "right", vertical: "top" }}
+                  anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
                 >
-                  <MenuItem onClick={handleClose}>
+                  <MenuItem onClick={()=>navigate("/auth/profile")}>
                     <Avatar /> Profile
                   </MenuItem>
-                  <MenuItem onClick={handleClose}>
+                  {/* <MenuItem onClick={handleClose}>
                     <Avatar /> My account
-                  </MenuItem>
+                  </MenuItem> */}
                   <Divider />
-                  <MenuItem onClick={handleClose}>
+                  <MenuItem onClick={()=>navigate("/cms/cart")}>
                     <ListItemIcon>
-                      <PersonAdd fontSize="small" />
+                      <ShoppingCartCheckoutIcon />
                     </ListItemIcon>
-                    Add another account
+                    Go to Cart
                   </MenuItem>
-                  <MenuItem onClick={handleClose}>
-                    <ListItemIcon>
-                      <Settings fontSize="small" />
-                    </ListItemIcon>
-                    Settings
-                  </MenuItem>
+
                   <MenuItem onClick={handleLogout}>
                     <ListItemIcon>
                       <Logout fontSize="small" />
