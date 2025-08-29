@@ -22,6 +22,7 @@ import { toast } from "react-toastify";
 const schema = yup.object().shape({
   title: yup.string().required("Title is required"),
   description: yup.string().required("Description is required"),
+  price:yup.string().required("Please mention the price"),
   image: yup
     .mixed()
     .test("fileExist", "Profile picture is required", (value) => {
@@ -59,6 +60,7 @@ export default function Create() {
     const formData = new FormData();
     formData.append("title", data.title);
     formData.append("description", data.description);
+    formData.append("price",data.price);
     formData.append("image", data.image[0]);
     console.log("formData");
     try {
@@ -97,6 +99,15 @@ export default function Create() {
               {...register("description")}
               error={!!errors.description}
               helperText={errors.description?.message}
+              margin="normal"
+              variant="outlined"
+            />
+            <TextField
+              fullWidth
+              label="Price"
+              {...register("price")}
+              error={!!errors.price}
+              helperText={errors.price?.message}
               margin="normal"
               variant="outlined"
             />

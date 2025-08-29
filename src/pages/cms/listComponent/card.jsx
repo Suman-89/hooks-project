@@ -68,6 +68,10 @@ export default function RecipeReviewCard({ row }) {
     console.log(item_id,'id')
   }
 
+  const deleteItem = (delId) =>{
+console.log(delId,'delid');
+  }
+
 
   return (
     <Card sx={{ maxWidth: 345, height:400, padding:'2px 2px' }}>
@@ -100,7 +104,7 @@ export default function RecipeReviewCard({ row }) {
         <IconButton aria-label="add to favorites">
           <FavoriteIcon />
         </IconButton>
-        <IconButton aria-label="add to cart" onClick={addToCart(row._id)}>
+        <IconButton aria-label="add to cart" onClick={()=>addToCart(row._id)}>
           <AddShoppingCartIcon />
         </IconButton>
          <IconButton aria-label="edit">
@@ -109,38 +113,12 @@ export default function RecipeReviewCard({ row }) {
          <IconButton aria-label="share">
           <ShareIcon />
         </IconButton>
-         <IconButton aria-label="delete">
+         <IconButton aria-label="delete" onClick={()=>deleteItem(row._id)}>
           <DeleteIcon />
         </IconButton>
-        {/* <ExpandMore
-          expand={expanded}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="show more"
-        >
-          <ExpandMoreIcon />
-        </ExpandMore> */}
+       
       </CardActions>
-      {/* <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent>
-          <Box sx={{ minWidth: 120 }}>
-            <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label">More...</InputLabel>
-              <Select
-                labelId="action-select-label"
-                id="action-select"
-                value={action}
-                label="Action"
-                onChange={handleChange}
-              >
-                <MenuItem value="add">Add to Cart</MenuItem>
-                <MenuItem value="edit">Edit</MenuItem>
-                <MenuItem value="delete">Delete</MenuItem>
-              </Select>
-            </FormControl>
-          </Box>
-        </CardContent>
-      </Collapse> */}
+     
     </Card>
   );
 }
