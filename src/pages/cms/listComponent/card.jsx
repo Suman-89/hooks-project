@@ -70,11 +70,11 @@ export default function RecipeReviewCard({ row }) {
 
 
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ maxWidth: 345, height:400, padding:'2px 2px' }}>
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-            R
+            {row.title.slice(0,1).toUpperCase()}
           </Avatar>
         }
         action={
@@ -87,7 +87,7 @@ export default function RecipeReviewCard({ row }) {
       />
       <CardMedia
         component="img"
-        height="194"
+        height="190"
         image={image(row.image)}
         alt="Paella dish"
       />
