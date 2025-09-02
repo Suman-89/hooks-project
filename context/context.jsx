@@ -7,10 +7,10 @@ export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
 
   // Load cart from localStorage on mount
+    const stored = localStorage.getItem(STORAGE_KEY);
   
   useEffect(() => {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored) {
+    
       try {
         const parsed = JSON.parse(stored);
         if (Array.isArray(parsed)) {
@@ -19,8 +19,8 @@ export const CartProvider = ({ children }) => {
       } catch (err) {
         console.error("Failed to parse cart data from localStorage", err);
       }
-    }
-  }, []);
+    
+  }, [stored]);
 
   // Sync cart to localStorage on change
   useEffect(() => {

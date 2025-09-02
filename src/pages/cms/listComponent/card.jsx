@@ -34,6 +34,7 @@ export default function RecipeReviewCard({ row, onDelete }) {
       quantity: 1,
     };
     addToCart(item);
+    
     toast.success(`${row.title} added to cart`);
   };
 
