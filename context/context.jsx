@@ -20,7 +20,7 @@ export const CartProvider = ({ children }) => {
         console.error("Failed to parse cart data from localStorage", err);
       }
     
-  }, [stored]);
+  }, []);
 
   // Sync cart to localStorage on change
   useEffect(() => {

@@ -35,6 +35,7 @@ export default function Login() {
   const setToken = useTokenStore((state) => state.setToken);
   const navigate = useNavigate();
 
+  const [passwordType ,setPasswordType] = useState('password')
   const {
     register,
     handleSubmit,
@@ -95,7 +96,7 @@ export default function Login() {
               fullWidth
               label="Password"
               {...register("password")}
-              //   type={passwordType}
+                type={passwordType}
               error={!!errors.password}
               helperText={errors.password?.message}
               margin="normal"
@@ -111,11 +112,11 @@ export default function Login() {
               <FormControlLabel
                 control={
                   <Checkbox
-                  //   onClick={() =>
-                  //     setPasswordType((prev) =>
-                  //       prev === "password" ? "text" : "password"
-                  //     )
-                  //   }
+                    onClick={() =>
+                      setPasswordType((prev) =>
+                        prev === "password" ? "text" : "password"
+                      )
+                    }
                   />
                 }
                 label="Show Password"

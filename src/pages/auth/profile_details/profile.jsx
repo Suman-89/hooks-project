@@ -2,14 +2,24 @@ import React, { useEffect, useState } from "react";
 import AxiosInstance from "../../../api/axios/axios";
 import { endPoints } from "../../../api/endpoints/endpoint";
 import { toast } from "react-toastify";
-import "./Profile.css"; // CSS file
-import {profile_pic} from "../../../api/axios/axios"
+import { profile_pic } from "../../../api/axios/axios";
+import {
+  Avatar,
+  Box,
+  Button,
+  Card,
+  Divider,
+  Grid,
+  IconButton,
+  Typography,
+} from "@mui/material";
+import PeopleIcon from "@mui/icons-material/People";
+import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
 
-
-export default function Profile({media}) {
+export default function Profile({ media }) {
   const [user, setUser] = useState({});
-  const imageData = profile_pic(media)
-  console.log(user);
+  const imageData = profile_pic(media);
+
   useEffect(() => {
     async function fetchData() {
       try {
@@ -25,50 +35,137 @@ export default function Profile({media}) {
   }, []);
 
   return (
-    <div className="profile-wrapper">
-      <div className="profile-card">
-        <div className="profile-actions">
-          <div className="action">
-            <i className="fas fa-user-friends"></i>
-            <span>Connect</span>
-          </div>
-          <div className="action">
-            <i className="fas fa-comment-dots"></i>
-            <span>Message</span>
-          </div>
-        </div>
+    <Box
+      sx={{
+        minHeight: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        background: "linear-gradient(135deg, #ff4e94, #ff7eb3)",
+        p: 2,
+      }}
+    >
+      <Card
+        sx={{
+          maxWidth: 400,
+          width: "100%",
+          borderRadius: 4,
+          textAlign: "center",
+          p: 3,
+          boxShadow: 6,
+          position: "relative",
+        }}
+      >
+        {/* Actions */}
+        <Grid
+          container
+          spacing={1}
+          sx={{
+            position: "absolute",
+            top: 16,
+            left: "5%",
+            width: "90%",
+            flexDirection: { xs: "column", sm: "row" }, // responsive
+            alignItems: { xs: "flex-start", sm: "center" },
+          }}
+        >
+          <Grid
+            item
+            xs="auto"
+            sx={{ display: "flex", alignItems: "center", gap: 0.5 }}
+          >
+            <IconButton color="primary" size="small">
+              <PeopleIcon />
+            </IconButton>
+            <Typography variant="caption">Connect</Typography>
+          </Grid>
 
+          <Grid
+            item
+            xs="auto"
+            sx={{ display: "flex", alignItems: "center", gap: 0.5 }}
+          >
+            <IconButton color="primary" size="small">
+              <ChatBubbleIcon />
+            </IconButton>
+            <Typography variant="caption">Message</Typography>
+          </Grid>
+        </Grid>
+
+        {/* Profile Image */}
         {user.profile_pic && (
-          <div className="profile-image">
-            <img src={imageData} alt="Profile" />
-          </div>
+          <Box sx={{ mt: { xs: 10, sm: 6 } }}>
+            <Avatar
+              src={imageData}
+              alt="Profile"
+              sx={{
+                width: 110,
+                height: 110,
+                border: "6px solid #fff",
+                boxShadow: 3,
+                mx: "auto",
+              }}
+            />
+          </Box>
         )}
 
-        <h2 className="profile-name">
+        {/* Name & Info */}
+        <Typography variant="h6" sx={{ mt: 2, fontWeight: "600" }}>
           {user.first_name || ""} {user.last_name || ""}
-        </h2>
-        <p className="profile-location">{user.city || "City"}, {user.country || "Country"}</p>
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          {user.city || "City"}, {user.country || "Country"}
+        </Typography>
 
-        <p className="profile-role">{user.role || "Web Producer - Web Specialist"}</p>
-        <p className="profile-university">Columbia University - New York</p>
+        <Typography variant="body2" sx={{ mt: 1, color: "text.primary" }}>
+          {user.role || "Web Producer - Web Specialist"}
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          Columbia University - New York
+        </Typography>
 
-        <div className="profile-stats">
-          <div>
-            <span>65</span>
-            <p>Friends</p>
-          </div>
-          <div>
-            <span>43</span>
-            <p>Photos</p>
-          </div>
-          <div>
-            <span>21</span>
-            <p>Comments</p>
-          </div>
-        </div>
+        {/* Stats */}
+        <Grid container justifyContent="space-around" sx={{ my: 3 }}>
+          <Grid item>
+            <Typography variant="h6">65</Typography>
+            <Typography variant="caption" color="text.secondary">
+              Friends
+            </Typography>
+          </Grid>
+          <Grid item>
+            <Typography variant="h6">43</Typography>
+            <Typography variant="caption" color="text.secondary">
+              Photos
+            </Typography>
+          </Grid>
+          <Grid item>
+            <Typography variant="h6">21</Typography>
+            <Typography variant="caption" color="text.secondary">
+              Comments
+            </Typography>
+          </Grid>
+        </Grid>
 
-        <button className="profile-button">Show more</button>
-      </div>
-    </div>
+        <Divider sx={{ my: 2 }} />
+
+        {/* Button */}
+        <Button
+          fullWidth
+          sx={{
+            borderRadius: "50px",
+            py: 1,
+            textTransform: "none",
+            background: "linear-gradient(to right, #ff4e94, #ff7eb3)",
+            color: "white",
+            "&:hover": {
+              opacity: 0.9,
+              background: "linear-gradient(to right, #ff4e94, #ff7eb3)",
+            },
+          }}
+        >
+          Show more
+        </Button>
+      </Card>
+    </Box>
   );
 }

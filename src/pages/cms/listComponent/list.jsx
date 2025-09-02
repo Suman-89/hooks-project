@@ -27,6 +27,7 @@ export default function List() {
   const [idToDelete, setIdToDelete] = useState("");
   const [open, setOpen] = useState(false);
 
+  // Fetch list
   const fetchList = async () => {
     try {
       const response = await AxiosInstance.post(endPoints.cms.list);
@@ -40,6 +41,7 @@ export default function List() {
     fetchList();
   }, []);
 
+  // Delete Handlers
   const handleDeleteClick = (itemId) => {
     setIdToDelete(itemId);
     setOpen(true);
@@ -48,8 +50,13 @@ export default function List() {
   const handleRemove = async () => {
     const formData = new FormData();
     formData.append("id", idToDelete);
+
     try {
-      const response = await AxiosInstance.post(endPoints.cms.remove, formData);
+      const response = await AxiosInstance.post(
+        endPoints.cms.remove,
+        formData
+      );
+
       if (response.data.status === 200) {
         toast.success(response.data.message);
         fetchList(); // Refresh list
@@ -65,23 +72,28 @@ export default function List() {
 
   return (
     <Box sx={{ padding: 3 }}>
-      <Grid sx={{ display: "flex", justifyContent: "end" }}>
+      {/* Add New Item Button */}
+      <Grid container justifyContent="flex-end" sx={{ mb: 2 }}>
         <Button
           variant="outlined"
           color="primary"
           href="/cms/create"
-          sx={{ padding: 2, marginBottom: 2 }}
+          sx={{ paddingX: 3, paddingY: 1.5 }}
         >
           Add New Item
         </Button>
       </Grid>
 
+      {/* List Rendering */}
       <Grid container spacing={2}>
         {Array.isArray(list) && list.length > 0 ? (
           list.map((row) => (
             <Grid item xs={12} sm={6} md={4} key={row._id}>
               <Item>
-                <RecipeReviewCard row={row} onDelete={handleDeleteClick} />
+                <RecipeReviewCard
+                  row={row}
+                  onDelete={handleDeleteClick}
+                />
               </Item>
             </Grid>
           ))
@@ -94,6 +106,7 @@ export default function List() {
         )}
       </Grid>
 
+      {/* Delete Confirmation Alert */}
       {open && (
         <SweetAlertComponent
           confirm={handleRemove}
