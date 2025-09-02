@@ -1,23 +1,17 @@
-import * as React from "react";
+import React, { useEffect, useState } from "react";
 import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
-  Typography,
+  Grid,
   Box,
   Button,
-  Grid,
+  TableRow,
+  TableCell,
+  Paper,
 } from "@mui/material";
-import AxiosInstance, { image } from "./../../../api/axios/axios";
-import { endPoints } from "../../../api/endpoints/endpoint";
-import { toast } from "react-toastify";
-import SweetAlertComponent from "../../../components/sweetAlert/sweetAlert";
-
 import { styled } from "@mui/material/styles";
+import { toast } from "react-toastify";
+import AxiosInstance from "../../../api/axios/axios";
+import { endPoints } from "../../../api/endpoints/endpoint";
+import SweetAlertComponent from "../../../components/sweetAlert/sweetAlert";
 import RecipeReviewCard from "./card";
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -26,94 +20,88 @@ const Item = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(1),
   textAlign: "center",
   color: (theme.vars ?? theme).palette.text.secondary,
-  ...theme.applyStyles("dark", {
-    backgroundColor: "#1A2027",
-  }),
 }));
 
 export default function List() {
-  const [list, setList] = React.useState([]);
-  const [id, setId] = React.useState("");
-  const [open, setOpen] = React.useState(false);
-  console.log(list, "list");
-  // Delete handler
+  const [list, setList] = useState([]);
+  const [idToDelete, setIdToDelete] = useState("");
+  const [open, setOpen] = useState(false);
+
+  const fetchList = async () => {
+    try {
+      const response = await AxiosInstance.post(endPoints.cms.list);
+      setList(response.data.data);
+    } catch (error) {
+      toast.error("Failed to fetch data");
+    }
+  };
+
+  useEffect(() => {
+    fetchList();
+  }, []);
+
+  const handleDeleteClick = (itemId) => {
+    setIdToDelete(itemId);
+    setOpen(true);
+  };
+
   const handleRemove = async () => {
     const formData = new FormData();
-    formData.append("id", id);
+    formData.append("id", idToDelete);
     try {
       const response = await AxiosInstance.post(endPoints.cms.remove, formData);
       if (response.data.status === 200) {
         toast.success(response.data.message);
+        fetchList(); // Refresh list
       } else {
         toast.error(response.data.message);
       }
-      const listResponse = await AxiosInstance.post(endPoints.cms.list);
-      setList(listResponse.data.data);
     } catch (error) {
       toast.error("Something went wrong");
+    } finally {
+      setOpen(false);
     }
   };
 
-  React.useEffect(() => {
-    async function showData() {
-      try {
-        const response = await AxiosInstance.post(endPoints.cms.list);
-        setList(response.data.data);
-      } catch (error) {
-        toast.error("Failed to fetch data");
-      }
-    }
-    showData();
-  }, []);
-
   return (
-    <>
-      <Box sx={{ padding: 3 }}>
-        <Grid sx={{ display: "flex", justifyContent: "end" }}>
-          <Button
-            variant="outlined"
-            color="primary"
-            href="/cms/create"
-            sx={{ padding: 2, marginBottom: 2 }}
-          >
-            Add New Item
-          </Button>
-        </Grid>
+    <Box sx={{ padding: 3 }}>
+      <Grid sx={{ display: "flex", justifyContent: "end" }}>
+        <Button
+          variant="outlined"
+          color="primary"
+          href="/cms/create"
+          sx={{ padding: 2, marginBottom: 2 }}
+        >
+          Add New Item
+        </Button>
+      </Grid>
 
-        <Box sx={{ width: "100%" }}>
-          <Grid
-            container
-            rowSpacing={1}
-            columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-          >
-            {Array.isArray(list) && list.length > 0 ? (
-              list.map((row) => (
-                // console.log(row)
-                <Grid key={row._id} size={4}>
-                  <Item>
-                    <RecipeReviewCard row={row} />
-                  </Item>
-                </Grid>
-              ))
-            ) : (
-              <TableRow>
-                <TableCell colSpan={7} align="center">
-                  No data available
-                </TableCell>
-              </TableRow>
-            )}
-          </Grid>
-        </Box>
-
-        {open && (
-          <SweetAlertComponent
-            confirm={handleRemove}
-            cancel={() => setOpen(false)}
-            title="Are you sure?"
-            subtitle="You will not be able to recover this!"
-          />
+      <Grid container spacing={2}>
+        {Array.isArray(list) && list.length > 0 ? (
+          list.map((row) => (
+            <Grid item xs={12} sm={6} md={4} key={row._id}>
+              <Item>
+                <RecipeReviewCard row={row} onDelete={handleDeleteClick} />
+              </Item>
+            </Grid>
+          ))
+        ) : (
+          <TableRow>
+            <TableCell colSpan={7} align="center">
+              No data available
+            </TableCell>
+          </TableRow>
         )}
-      </Box>
-    </>
+      </Grid>
+
+      {open && (
+        <SweetAlertComponent
+          confirm={handleRemove}
+          cancel={() => setOpen(false)}
+          title="Are you sure?"
+          subtitle="You will not be able to recover this!"
+        />
+      )}
+    </Box>
   );
 }

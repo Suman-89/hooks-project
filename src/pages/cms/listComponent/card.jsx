@@ -1,84 +1,48 @@
-import * as React from "react";
-import { styled } from "@mui/material/styles";
-import Card from "@mui/material/Card";
-import CardHeader from "@mui/material/CardHeader";
-import CardMedia from "@mui/material/CardMedia";
-import CardContent from "@mui/material/CardContent";
-import CardActions from "@mui/material/CardActions";
-import Collapse from "@mui/material/Collapse";
-import Avatar from "@mui/material/Avatar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
+import React from "react";
+import {
+  Card,
+  CardHeader,
+  CardMedia,
+  CardContent,
+  CardActions,
+  Avatar,
+  IconButton,
+  Typography,
+} from "@mui/material";
 import { red } from "@mui/material/colors";
-import EditDocumentIcon from '@mui/icons-material/EditDocument';
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import DeleteIcon from '@mui/icons-material/Delete';
-import ShareIcon from "@mui/icons-material/Share";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
+import {
+  Favorite as FavoriteIcon,
+  Share as ShareIcon,
+  Delete as DeleteIcon,
+  AddShoppingCart as AddShoppingCartIcon,
+  MoreVert as MoreVertIcon,
+  Edit as EditIcon,
+} from "@mui/icons-material";
 import { image } from "../../../api/axios/axios";
-import Box from '@mui/material/Box';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
+import { useCart } from "../../../../context/context";
+import { toast } from "react-toastify";
 
+export default function RecipeReviewCard({ row, onDelete }) {
+  const { addToCart } = useCart();
 
-
-
-
-const ExpandMore = styled((props) => {
-  const { expand, ...other } = props;
-  return <IconButton {...other} />;
-})(({ theme }) => ({
-  marginLeft: "auto",
-  transition: theme.transitions.create("transform", {
-    duration: theme.transitions.duration.shortest,
-  }),
-  variants: [
-    {
-      props: ({ expand }) => !expand,
-      style: {
-        transform: "rotate(0deg)",
-      },
-    },
-    {
-      props: ({ expand }) => !!expand,
-      style: {
-        transform: "rotate(180deg)",
-      },
-    },
-  ],
-}));
-
-export default function RecipeReviewCard({ row }) {
-  const [expanded, setExpanded] = React.useState(false);
-  console.log(row, "row");
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
+  const handleAddToCart = () => {
+    const item = {
+      id: row._id,
+      image:row.image,
+      title: row.title,
+      price: row.price || 0,
+      quantity: 1,
+    };
+    addToCart(item);
+    toast.success(`${row.title} added to cart`);
   };
-  const [action, setAction] = React.useState('');
-
-  const handleChange = (event) => {
-    setAction(event.target.value);
-  };
-
-  const addToCart = (item_id) =>{
-    console.log(item_id,'id')
-  }
-
-  const deleteItem = (delId) =>{
-console.log(delId,'delid');
-  }
-
 
   return (
-    <Card sx={{ maxWidth: 345, height:400, padding:'2px 2px' }}>
+    <Card sx={{ maxWidth: 345, height: 400, padding: 1 }}>
       <CardHeader
         avatar={
-          <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-            {row.title.slice(0,1).toUpperCase()}
+          <Avatar sx={{ bgcolor: red[500] }} aria-label="item">
+            {row.title?.charAt(0).toUpperCase()}
           </Avatar>
         }
         action={
@@ -87,38 +51,36 @@ console.log(delId,'delid');
           </IconButton>
         }
         title={row.title}
-        subheader={row.createdAt}
+        subheader={new Date(row.createdAt).toLocaleDateString()}
       />
       <CardMedia
         component="img"
         height="190"
         image={image(row.image)}
-        alt="Paella dish"
+        alt={row.title}
       />
       <CardContent>
-        <Typography variant="body2" sx={{ color: "text.secondary" }}>
+        <Typography variant="body2" color="text.secondary">
           {row.description}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
+        <IconButton aria-label="favorite">
           <FavoriteIcon />
         </IconButton>
-        <IconButton aria-label="add to cart" onClick={()=>addToCart(row._id)}>
+        <IconButton aria-label="add to cart" onClick={handleAddToCart}>
           <AddShoppingCartIcon />
         </IconButton>
-         <IconButton aria-label="edit">
-          <EditDocumentIcon />
+        <IconButton aria-label="edit">
+          <EditIcon />
         </IconButton>
-         <IconButton aria-label="share">
+        <IconButton aria-label="share">
           <ShareIcon />
         </IconButton>
-         <IconButton aria-label="delete" onClick={()=>deleteItem(row._id)}>
+        <IconButton aria-label="delete" onClick={() => onDelete(row._id)}>
           <DeleteIcon />
         </IconButton>
-       
       </CardActions>
-     
     </Card>
   );
 }
