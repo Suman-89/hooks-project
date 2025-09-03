@@ -30,11 +30,11 @@ export default function RecipeReviewCard({ row, onDelete }) {
       id: row._id,
       image:row.image,
       title: row.title,
-      price: row.price || 0,
+      price: row.price,
       quantity: 1,
     };
     addToCart(item);
-    
+    console.log(item,'added item')
     toast.success(`${row.title} added to cart`);
   };
 
