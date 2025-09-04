@@ -65,7 +65,10 @@ export default function Login() {
       <Box
         sx={{
           minHeight: "100vh",
-          backgroundColor: "#f0f2f5",
+          backgroundColor: (theme) =>
+            theme.palette.mode === "dark"
+              ? theme.palette.background.default
+              : "#f0f2f5",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -78,7 +81,10 @@ export default function Login() {
               p: { xs: 3, sm: 4 },
               borderRadius: 3,
               boxShadow: 4,
-              backgroundColor: "#ffffff",
+              backgroundColor: (theme) =>
+                theme.palette.mode === "dark"
+                  ? theme.palette.background.paper
+                  : "#ffffff",
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
@@ -87,11 +93,21 @@ export default function Login() {
             <Typography variant="h5" fontWeight={600} textAlign="center" mb={1}>
               Sign In
             </Typography>
-            <Typography variant="body2" textAlign="center" color="text.secondary" mb={3}>
+            <Typography
+              variant="body2"
+              textAlign="center"
+              color="text.secondary"
+              mb={3}
+            >
               Enter your credentials to access the dashboard
             </Typography>
 
-            <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate sx={{ width: "100%" }}>
+            <Box
+              component="form"
+              onSubmit={handleSubmit(onSubmit)}
+              noValidate
+              sx={{ width: "100%" }}
+            >
               <Stack spacing={2}>
                 <FormControl fullWidth>
                   <FormLabel>Email Address</FormLabel>
@@ -123,21 +139,26 @@ export default function Login() {
                     control={
                       <Checkbox
                         onClick={() =>
-                          setPasswordType((prev) => (prev === "password" ? "text" : "password"))
+                          setPasswordType((prev) =>
+                            prev === "password" ? "text" : "password"
+                          )
                         }
                       />
                     }
                     label="Show Password"
                   />
                   <Link to="/auth/register" style={{ textDecoration: "none" }}>
-                    <Typography variant="body2"  sx={{
-                        color: "primary.main",            
-                        textDecoration: "none",          
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        color: "primary.main",
+                        textDecoration: "none",
                         "&:hover": {
-                          color: "secondary.main",        
-                          textDecoration: "underline",    
+                          color: "secondary.main",
+                          textDecoration: "underline",
                         },
-                      }}>
+                      }}
+                    >
                       Create Account
                     </Typography>
                   </Link>
@@ -152,8 +173,6 @@ export default function Login() {
                     py: 1.5,
                     fontWeight: 600,
                     textTransform: "none",
-                     backgroundColor: "primary",
-                    ":hover": { backgroundColor: "secondary" },
                   }}
                 >
                   {isSubmitting ? "Signing in..." : "Sign In"}

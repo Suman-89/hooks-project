@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 import Navbar from "./pages/layout/navbar/navbar";
 import Layout from "./pages/layout/layout";
+import HeroCarousel from "./components/hero";
 const Login = React.lazy(() => import("./pages/auth/login/login"));
 const Registration = React.lazy(() =>
   import("../src/pages/auth/registration/registration")
