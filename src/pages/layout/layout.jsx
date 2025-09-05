@@ -22,7 +22,6 @@ export default function Layout({ children }) {
         minHeight="100vh" // full height of viewport
       >
         {isAuthenticated && <Navbar />}
-        {isAuthenticated && <HeroCarousel />}
         <Box component="main" flexGrow={1} p={2}>
           {children}
         </Box>

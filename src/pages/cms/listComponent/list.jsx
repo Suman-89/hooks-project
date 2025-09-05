@@ -3,8 +3,7 @@ import {
   Grid,
   Box,
   Button,
-  TableRow,
-  TableCell,
+  Typography,
   Paper,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
@@ -13,13 +12,14 @@ import AxiosInstance from "../../../api/axios/axios";
 import { endPoints } from "../../../api/endpoints/endpoint";
 import SweetAlertComponent from "../../../components/sweetAlert/sweetAlert";
 import RecipeReviewCard from "./card";
+import HeroCarousel from "../../../components/hero";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: "#fff",
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: "center",
-  color: (theme.vars ?? theme).palette.text.secondary,
+  boxShadow: theme.shadows[3],
+  borderRadius: theme.shape.borderRadius,
+  padding: theme.spacing(2),
+  height: "100%",
 }));
 
 export default function List() {
@@ -27,11 +27,11 @@ export default function List() {
   const [idToDelete, setIdToDelete] = useState("");
   const [open, setOpen] = useState(false);
 
-  // Fetch list
   const fetchList = async () => {
     try {
       const response = await AxiosInstance.post(endPoints.cms.list);
       setList(response.data.data);
+      localStorage.setItem("list", JSON.stringify(response.data.data));
     } catch (error) {
       toast.error("Failed to fetch data");
     }
@@ -41,25 +41,25 @@ export default function List() {
     fetchList();
   }, []);
 
-  // Delete Handlers
   const handleDeleteClick = (itemId) => {
     setIdToDelete(itemId);
     setOpen(true);
   };
+
+  const handleEdit = (id) =>{
+    
+  }
 
   const handleRemove = async () => {
     const formData = new FormData();
     formData.append("id", idToDelete);
 
     try {
-      const response = await AxiosInstance.post(
-        endPoints.cms.remove,
-        formData
-      );
+      const response = await AxiosInstance.post(endPoints.cms.remove, formData);
 
       if (response.data.status === 200) {
         toast.success(response.data.message);
-        fetchList(); // Refresh list
+        fetchList();
       } else {
         toast.error(response.data.message);
       }
@@ -71,50 +71,56 @@ export default function List() {
   };
 
   return (
-    <Box sx={{ padding: 3 }}>
-      {/* Add New Item Button */}
-      <Grid container justifyContent="flex-end" sx={{ mb: 2 }}>
-        <Button
-          variant="outlined"
-          color="primary"
-          href="/cms/create"
-          sx={{ paddingX: 3, paddingY: 1.5 }}
-        >
-          Add New Item
-        </Button>
-      </Grid>
+    <>
+      <HeroCarousel />
 
-      {/* List Rendering */}
-      <Grid container spacing={2}>
+      <Box sx={{ px: { xs: 2, md: 6 }, py: 4 }}>
+        <Grid container justifyContent="flex-end" sx={{ mb: 3 }}>
+          <Button
+            variant="contained"
+            color="secondary"
+            href="/cms/create"
+            sx={{ px: 3, py: 1.5 }}
+          >
+            Add New Item
+          </Button>
+        </Grid>
+
         {Array.isArray(list) && list.length > 0 ? (
-          list.map((row) => (
-            <Grid item xs={12} sm={6} md={4} key={row._id}>
-              <Item>
-                <RecipeReviewCard
-                  row={row}
-                  onDelete={handleDeleteClick}
-                />
-              </Item>
-            </Grid>
-          ))
+          <Grid container spacing={3}>
+            {list.map((row) => (
+              <Grid item xs={12} sm={6} md={4} lg={3} key={row._id}>
+                <Item>
+                  <RecipeReviewCard row={row} onDelete={handleDeleteClick} />
+                </Item>
+              </Grid>
+            ))}
+          </Grid>
         ) : (
-          <TableRow>
-            <TableCell colSpan={7} align="center">
-              No data available
-            </TableCell>
-          </TableRow>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              height: "30vh",
+              textAlign: "center",
+            }}
+          >
+            <Typography variant="h6" color="text.secondary">
+              No items found.
+            </Typography>
+          </Box>
         )}
-      </Grid>
 
-      {/* Delete Confirmation Alert */}
-      {open && (
-        <SweetAlertComponent
-          confirm={handleRemove}
-          cancel={() => setOpen(false)}
-          title="Are you sure?"
-          subtitle="You will not be able to recover this!"
-        />
-      )}
-    </Box>
+        {open && (
+          <SweetAlertComponent
+            confirm={handleRemove}
+            cancel={() => setOpen(false)}
+            title="Are you sure?"
+            subtitle="You will not be able to recover this!"
+          />
+        )}
+      </Box>
+    </>
   );
 }

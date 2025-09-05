@@ -21,10 +21,12 @@ import {
 import { image } from "../../../api/axios/axios";
 import { useCart } from "../../../../context/context";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 export default function RecipeReviewCard({ row, onDelete }) {
   const { addToCart } = useCart();
 
+  const navigate = useNavigate();
   const handleAddToCart = () => {
     const item = {
       id: row._id,
@@ -38,11 +40,15 @@ export default function RecipeReviewCard({ row, onDelete }) {
     toast.success(`${row.title} added to cart`);
   };
 
+  const handleEdit = (id) =>{
+    navigate(`/cms/update/${id}`);
+  }
+
   return (
-    <Card sx={{ maxWidth: 345, height: 400, padding: 1 }}>
+    <Card sx={{ maxWidth: 345,width:320, height: 400, padding: 1 }}>
       <CardHeader
         avatar={
-          <Avatar sx={{ bgcolor: red[500] }} aria-label="item">
+          <Avatar sx={{ bgcolor: "secondary.main" }} aria-label="item">
             {row.title?.charAt(0).toUpperCase()}
           </Avatar>
         }
@@ -66,17 +72,14 @@ export default function RecipeReviewCard({ row, onDelete }) {
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="favorite">
+        <IconButton aria-label="favorite" >
           <FavoriteIcon />
         </IconButton>
         <IconButton aria-label="add to cart" onClick={handleAddToCart}>
           <AddShoppingCartIcon />
         </IconButton>
-        <IconButton aria-label="edit">
+        <IconButton aria-label="edit" onClick={() => handleEdit(row._id)}>
           <EditIcon />
-        </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
         </IconButton>
         <IconButton aria-label="delete" onClick={() => onDelete(row._id)}>
           <DeleteIcon />

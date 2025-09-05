@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { image } from "../../api/axios/axios";
 
 export default function HeroCarousel() {
   const theme = useTheme();
@@ -23,6 +24,11 @@ export default function HeroCarousel() {
     autoplaySpeed: 4000,
     arrows: false,
   };
+
+  const item = localStorage.getItem("list");
+  const itemList = JSON.parse(item);
+
+  console.log(itemList,"test");
 
   const slides = [
     {
@@ -45,12 +51,16 @@ export default function HeroCarousel() {
   return (
     <Box sx={{ position: "relative", width: "100%", overflow: "hidden" }}>
       <Slider {...settings}>
-        {slides.map((slide, index) => (
+        {itemList.map((slide, index) => (
+          <>
+          {console.log(slide.image,'itemList')}
           <Box
+          
+          // image={image(slide.image)}
             key={index}
             sx={{
-              height: { xs: "60vh", md: "90vh" },
-              backgroundImage: `url(${slide.image})`,
+              height: { xs: "40vh", md: "60vh" },
+              backgroundImage: `url(${image(slide.image)})`,
               backgroundSize: "cover",
               backgroundPosition: "center",
               position: "relative",
@@ -81,23 +91,12 @@ export default function HeroCarousel() {
                 {slide.title}
               </Typography>
               <Typography variant="h6" sx={{ mb: 3 }}>
-                {slide.subtitle}
+                {slide.description}
               </Typography>
-              <Button
-                variant="contained"
-                size="large"
-                sx={{
-                  borderRadius: 2,
-                  px: 4,
-                  py: 1.5,
-                  backgroundColor: theme.palette.primary.main,
-                  "&:hover": { backgroundColor: theme.palette.secondary.main },
-                }}
-              >
-                Get Started
-              </Button>
+             
             </Container>
           </Box>
+          </>
         ))}
       </Slider>
     </Box>
