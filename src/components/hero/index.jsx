@@ -1,18 +1,13 @@
-import React from "react";
-import Slider from "react-slick";
 import {
   Box,
   Typography,
-  Button,
   Container,
-  useTheme,
 } from "@mui/material";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import { image } from "../../api/axios/axios";
+import "/node_modules/slick-carousel/slick/slick-theme.css";
+import "/node_modules/slick-carousel/slick/slick.css";
+import Slider from "react-slick";
 
 export default function HeroCarousel() {
-  const theme = useTheme();
 
   const settings = {
     dots: true,
@@ -32,35 +27,34 @@ export default function HeroCarousel() {
 
   const slides = [
     {
-      title: "Welcome to Our Platform",
-      subtitle: "Seamless solutions for your business needs.",
-      image: "https://source.unsplash.com/1600x800/?technology,office",
+      title: "Trust & Reliability",
+      subtitle: "Where your next chapter begins.",
+      image: "/src/assets/house_1.jpg",
     },
     {
-      title: "Empower Your Workflow",
-      subtitle: "Boost productivity with modern tools.",
-      image: "https://source.unsplash.com/1600x800/?business,teamwork",
+      title: "Luxury & Lifestyle",
+      subtitle: "Live where elegance meets comfort.",
+      image: "/src/assets/img_0.jpg",
     },
     {
-      title: "Scale With Confidence",
-      subtitle: "Grow faster with scalable solutions.",
-      image: "https://source.unsplash.com/1600x800/?growth,success",
+      title: "Guidance & Simplicity",
+      subtitle: "Simplifying your property journey.",
+      image: "/src/assets/img_5.jpeg",
     },
   ];
 
   return (
     <Box sx={{ position: "relative", width: "100%", overflow: "hidden" }}>
       <Slider {...settings}>
-        {itemList.map((slide, index) => (
-          <>
-          {console.log(slide.image,'itemList')}
+        {Array.isArray(slides)&&slides.map((slide, index) => (
+          
           <Box
           
           // image={image(slide.image)}
             key={index}
             sx={{
               height: { xs: "40vh", md: "60vh" },
-              backgroundImage: `url(${image(slide.image)})`,
+              backgroundImage: `url(${slide.image})`,
               backgroundSize: "cover",
               backgroundPosition: "center",
               position: "relative",
@@ -91,12 +85,12 @@ export default function HeroCarousel() {
                 {slide.title}
               </Typography>
               <Typography variant="h6" sx={{ mb: 3 }}>
-                {slide.description}
+                {slide.subtitle}
               </Typography>
              
             </Container>
           </Box>
-          </>
+          
         ))}
       </Slider>
     </Box>

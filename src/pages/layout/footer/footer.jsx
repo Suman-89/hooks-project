@@ -8,7 +8,7 @@ export default function Footer() {
       {/* Top Section */}
       <Grid container spacing={4} maxWidth="lg" sx={{ mx: "auto", px: 2 }}>
         {/* Brand Info */}
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid >
           <Typography variant="h6" sx={{ color: "secondary.main", mb: 1 }}>
             My Shop
           </Typography>
@@ -18,7 +18,7 @@ export default function Footer() {
         </Grid>
 
         {/* Quick Links */}
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid >
           <Typography variant="subtitle1" sx={{ fontWeight: "bold", mb: 1 }}>
             Quick Links
           </Typography>
@@ -39,7 +39,7 @@ export default function Footer() {
         </Grid>
 
         {/* Contact Info */}
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid >
           <Typography variant="subtitle1" sx={{ fontWeight: "bold", mb: 1 }}>
             Contact
           </Typography>
@@ -49,7 +49,7 @@ export default function Footer() {
         </Grid>
 
         {/* Socials */}
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid >
           <Typography variant="subtitle1" sx={{ fontWeight: "bold", mb: 1 }}>
             Follow Us
           </Typography>

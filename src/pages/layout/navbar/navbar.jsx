@@ -29,6 +29,12 @@ export default function Navbar() {
   const token = useTokenStore((state) => state.token);
   const setToken = useTokenStore((state) => state.setToken);
   const [anchorEl, setAnchorEl] = React.useState(null);
+
+
+  const user = localStorage.getItem("user_email");
+  const user_icon = user.slice(0,1).toUpperCase();
+
+
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -85,12 +91,12 @@ export default function Navbar() {
                     <IconButton
                       onClick={handleClick}
                       size="small"
-                      sx={{ ml: 2 }}
+                      sx={{ ml: 2}}
                       aria-controls={open ? "account-menu" : undefined}
                       aria-haspopup="true"
                       aria-expanded={open ? "true" : undefined}
                     >
-                      <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
+                      <Avatar sx={(color)=>({ width: 32, height: 32, backgroundColor: color.palette.success.main})}>{user_icon}</Avatar>
                     </IconButton>
                   </Tooltip>
                 </Box>

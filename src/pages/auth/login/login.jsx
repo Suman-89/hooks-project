@@ -46,7 +46,10 @@ export default function Login() {
     try {
       const response = await AxiosInstance.post(endPoints.auth.signin, formData);
       if (response.data.status === 200) {
+        // console.log(response.data.data.email);
         localStorage.setItem("token", response.data.token);
+        localStorage.setItem("user_email", response.data.data.email);
+
         toast.success(response.data.message);
         setToken();
         navigate("/cms/list");

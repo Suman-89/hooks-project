@@ -89,7 +89,7 @@ export default function List() {
         {Array.isArray(list) && list.length > 0 ? (
           <Grid container spacing={3}>
             {list.map((row) => (
-              <Grid item xs={12} sm={6} md={4} lg={3} key={row._id}>
+              <Grid key={row._id}>
                 <Item>
                   <RecipeReviewCard row={row} onDelete={handleDeleteClick} />
                 </Item>
