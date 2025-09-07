@@ -6,57 +6,56 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { toast } from "react-toastify";
+import { useDropzone } from "react-dropzone";
 import AxiosInstance, { image } from "../../../api/axios/axios";
 import { endPoints } from "../../../api/endpoints/endpoint";
 
 const schema = yup.object().shape({
   title: yup.string().required("Title is required"),
   description: yup.string().required("Description is required"),
-//   image: yup
-//     .mixed()
-//     .test("fileExist", "Image is required", (value) => {
-//       return value && value.length > 0;
-//     }),
+  image: yup.mixed().nullable(), // optional during update
 });
 
 export default function Update() {
   const [preview, setPreview] = useState(null);
-  const [details, setDetails] = useState({});
+  const [details, setDetails] = useState(null);
   const { id } = useParams();
-// useparams is used when the path is dynamic
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
     setValue,
     formState: { isSubmitting, errors },
-    watch,
   } = useForm({
     resolver: yupResolver(schema),
   });
 
-  const watchFile = watch("image");
+  // Dropzone setup
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    accept: { "image/*": [] },
+    multiple: false,
+    onDrop: (acceptedFiles) => {
+      if (acceptedFiles && acceptedFiles.length > 0) {
+        const file = acceptedFiles[0];
+        setValue("image", acceptedFiles, { shouldValidate: true });
+        const objectUrl = URL.createObjectURL(file);
+        setPreview(objectUrl);
+      }
+    },
+  });
 
-  // Handle preview for uploaded file
+  // Cleanup preview URL when component unmounts
   useEffect(() => {
-    let objectUrl = null;
-
-    if (watchFile && watchFile.length > 0) {
-      const file = watchFile[0];
-      objectUrl = URL.createObjectURL(file);
-      setPreview(objectUrl);
-    } else {
-      setPreview(null);
-    }
-
     return () => {
-      if (objectUrl) URL.revokeObjectURL(objectUrl);
+      if (preview) URL.revokeObjectURL(preview);
     };
-  }, [watchFile]);
+  }, [preview]);
 
   // Fetch record by ID
   useEffect(() => {
@@ -79,17 +78,22 @@ export default function Update() {
     }
   }, [details, setValue]);
 
+  // Handle submit
   const onSubmit = async (data) => {
     const formData = new FormData();
     formData.append("id", id);
     formData.append("title", data.title);
     formData.append("description", data.description);
-    formData.append("image", data.image[0]);
+
+    if (data.image && data.image.length > 0) {
+      formData.append("image", data.image[0]);
+    }
 
     try {
       const response = await AxiosInstance.post(endPoints.cms.update, formData);
       if (response.data.status === 200) {
         toast.success(response.data.message);
+        navigate("/cms/list"); // go back home after update
       }
     } catch (error) {
       console.error("Update failed", error);
@@ -130,22 +134,33 @@ export default function Update() {
             variant="outlined"
           />
 
-          <input
-            type="file"
-            {...register("image")}
-            onChange={(e) => {
-              const file = e.target.files?.[0];
-              if (file) {
-                setValue("image", e.target.files, { shouldValidate: true });
-              }
+          {/* Dropzone Upload Box */}
+          <Box
+            {...getRootProps()}
+            sx={{
+              border: "2px dashed #aaa",
+              borderRadius: "10px",
+              p: 3,
+              textAlign: "center",
+              cursor: "pointer",
+              mt: 2,
+              backgroundColor: isDragActive ? "#f0f8ff" : "transparent",
             }}
-            accept="image/*"
-            style={{ marginTop: 16 }}
-          />
+          >
+            <input {...getInputProps()} />
+            {isDragActive ? (
+              <Typography>Drop the file here ...</Typography>
+            ) : (
+              <Typography>
+                Drag & drop an image here, or click to select
+              </Typography>
+            )}
+          </Box>
           {errors.image && (
             <Typography color="error">{errors.image.message}</Typography>
           )}
 
+          {/* Image Preview */}
           {preview ? (
             <Box
               component="img"
@@ -174,7 +189,7 @@ export default function Update() {
             />
           ) : (
             <Typography mt={2} textAlign="center">
-              Drag or drop content here
+              No image uploaded yet
             </Typography>
           )}
 

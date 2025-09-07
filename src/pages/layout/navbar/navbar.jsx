@@ -67,7 +67,7 @@ export default function Navbar() {
             <Typography variant="h6" component="div">
               <Box
                 component="img"
-                src="/src/assets/logo.png"
+                src="/src/assets/logo_new.png"
                 alt="Logo"
                 sx={{ height: 100 }}
               />

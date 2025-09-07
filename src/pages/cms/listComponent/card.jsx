@@ -8,11 +8,10 @@ import {
   Avatar,
   IconButton,
   Typography,
+  Box,
 } from "@mui/material";
-import { red } from "@mui/material/colors";
 import {
   Favorite as FavoriteIcon,
-  Share as ShareIcon,
   Delete as DeleteIcon,
   AddShoppingCart as AddShoppingCartIcon,
   MoreVert as MoreVertIcon,
@@ -25,30 +24,40 @@ import { useNavigate } from "react-router-dom";
 
 export default function RecipeReviewCard({ row, onDelete }) {
   const { addToCart } = useCart();
-
   const navigate = useNavigate();
+
   const handleAddToCart = () => {
     const item = {
       id: row._id,
-      image:row.image,
+      image: row.image,
       title: row.title,
       price: row.price,
       quantity: 1,
     };
     addToCart(item);
-    console.log(item,'added item')
     toast.success(`${row.title} added to cart`);
   };
 
-  const handleEdit = (id) =>{
+  const handleEdit = (id) => {
     navigate(`/cms/update/${id}`);
-  }
+  };
 
   return (
-    <Card sx={{ maxWidth: 345,width:320, height: 400, padding: 1 }}>
+    <Card
+      sx={{
+        maxWidth: 345,
+        width: "100%",
+        display: "flex",
+        flexDirection: "column",
+        borderRadius: 3,
+        boxShadow: 3,
+        overflow: "hidden",
+      }}
+    >
+      {/* Header */}
       <CardHeader
         avatar={
-          <Avatar sx={{ bgcolor: "secondary.main" }} aria-label="item">
+          <Avatar sx={{ bgcolor: "primary.main" }} aria-label="item">
             {row.title?.charAt(0).toUpperCase()}
           </Avatar>
         }
@@ -57,33 +66,74 @@ export default function RecipeReviewCard({ row, onDelete }) {
             <MoreVertIcon />
           </IconButton>
         }
-        title={row.title}
+        title={
+          <Typography variant="subtitle1" fontWeight={600}>
+            {row.title}
+          </Typography>
+        }
         subheader={new Date(row.createdAt).toLocaleDateString()}
       />
+
+      {/* Image */}
       <CardMedia
         component="img"
-        height="190"
         image={image(row.image)}
         alt={row.title}
+        sx={{
+          width: "100%",
+          height: 220,
+          objectFit: "cover", // clean fit
+        }}
       />
-      <CardContent>
-        <Typography variant="body2" color="text.secondary">
+
+      {/* Content */}
+      <CardContent sx={{ flexGrow: 1 }}>
+        <Typography
+          variant="body2"
+          color="text.secondary"
+          sx={{
+            display: "-webkit-box",
+            WebkitLineClamp: 3,
+            WebkitBoxOrient: "vertical",
+            overflow: "hidden",
+          }}
+        >
           {row.description}
         </Typography>
+
+        {/* <Box mt={2}>
+          <Typography variant="h6" fontWeight={700} color="primary">
+            ₹ {row.price}
+          </Typography>
+        </Box> */}
       </CardContent>
-      <CardActions disableSpacing>
-        <IconButton aria-label="favorite" >
-          <FavoriteIcon />
-        </IconButton>
-        <IconButton aria-label="add to cart" onClick={handleAddToCart}>
-          <AddShoppingCartIcon />
-        </IconButton>
-        <IconButton aria-label="edit" onClick={() => handleEdit(row._id)}>
-          <EditIcon />
-        </IconButton>
-        <IconButton aria-label="delete" onClick={() => onDelete(row._id)}>
-          <DeleteIcon />
-        </IconButton>
+
+      {/* Actions */}
+      <CardActions
+        disableSpacing
+        sx={{
+          justifyContent: "space-between",
+          px: 2,
+          pb: 2,
+        }}
+      >
+        <Box>
+          <IconButton aria-label="favorite">
+            <FavoriteIcon />
+          </IconButton>
+          <IconButton aria-label="add to cart" onClick={handleAddToCart}>
+            <AddShoppingCartIcon />
+          </IconButton>
+        </Box>
+
+        <Box>
+          <IconButton aria-label="edit" onClick={() => handleEdit(row._id)}>
+            <EditIcon />
+          </IconButton>
+          <IconButton aria-label="delete" onClick={() => onDelete(row._id)}>
+            <DeleteIcon />
+          </IconButton>
+        </Box>
       </CardActions>
     </Card>
   );

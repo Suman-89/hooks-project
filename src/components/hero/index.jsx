@@ -27,19 +27,19 @@ export default function HeroCarousel() {
 
   const slides = [
     {
-      title: "Trust & Reliability",
-      subtitle: "Where your next chapter begins.",
-      image: "/src/assets/house_1.jpg",
+      title: "Freshness You Can Trust, Daily.",
+      subtitle: "Pure Choices for a Healthy Life.",
+      image: "/src/assets/gi_1.jpg",
     },
     {
-      title: "Luxury & Lifestyle",
-      subtitle: "Live where elegance meets comfort.",
-      image: "/src/assets/img_0.jpg",
+      title: "From Farm to Basket, Always Fresh.",
+      subtitle: "Groceries at Your Doorstep.",
+      image: "/src/assets/gi_2.jpg",
     },
     {
-      title: "Guidance & Simplicity",
-      subtitle: "Simplifying your property journey.",
-      image: "/src/assets/img_5.jpeg",
+      title: "Your Daily Essentials, Made Easy.",
+      subtitle: "Fast, Fresh & Hassle-Free.",
+      image: "/src/assets/gi_3.jpg",
     },
   ];
 
