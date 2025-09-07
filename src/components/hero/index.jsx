@@ -29,17 +29,17 @@ export default function HeroCarousel() {
     {
       title: "Freshness You Can Trust, Daily.",
       subtitle: "Pure Choices for a Healthy Life.",
-      image: "/src/assets/gi_1.jpg",
+      image: "/public/assets/carousel/gi_1.jpg",
     },
     {
       title: "From Farm to Basket, Always Fresh.",
       subtitle: "Groceries at Your Doorstep.",
-      image: "/src/assets/gi_2.jpg",
+      image: "/public/assets/carousel/gi_2.jpg",
     },
     {
       title: "Your Daily Essentials, Made Easy.",
       subtitle: "Fast, Fresh & Hassle-Free.",
-      image: "/src/assets/gi_3.jpg",
+      image: "/public/assets/carousel/gi_3jpg",
     },
   ];
 
