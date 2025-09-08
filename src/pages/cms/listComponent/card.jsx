@@ -43,18 +43,25 @@ export default function RecipeReviewCard({ row, onDelete }) {
   };
 
   return (
-    <Card
-      sx={{
-        maxWidth: 300,
-        width: "100%",
-        display: "flex",
-        flexDirection: "column",
-        borderRadius: 3,
-        boxShadow: 3,
-        overflow: "hidden",
-        margin: 0,
-      }}
-    >
+   <Card
+  sx={{
+    maxWidth: 300,
+    width: "100%",
+    height: 600, // optional: to keep all cards same height
+    display: "flex",
+    flexDirection: "column",
+    borderRadius: 3,
+    boxShadow: 3,
+    overflow: "hidden",
+    margin: 0,
+    transition: "transform 0.3s ease, box-shadow 0.3s ease",
+    "&:hover": {
+      transform: "scale(1.03)",
+      boxShadow: 6,
+    },
+  }}
+>
+
       {/* Header */}
       <CardHeader
         avatar={
