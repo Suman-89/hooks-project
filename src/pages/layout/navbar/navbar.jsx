@@ -26,9 +26,7 @@ export default function Navbar() {
   const setToken = useTokenStore((state) => state.setToken);
   const [anchorEl, setAnchorEl] = React.useState(null);
 
-const userToken = localStorage.getItem('token')
   const user = localStorage.getItem("user_email");
-  // const user_icon = user.slice(0,1).toUpperCase();
 
 
   const open = Boolean(anchorEl);
