@@ -75,7 +75,7 @@ export default function List() {
       <HeroCarousel />
 
       <Box sx={{ px: { xs: 2, md: 6 }, py: 4 }}>
-        <Grid container justifyContent="flex-end" sx={{ mb: 3 }}>
+        <Grid container justifyContent="center" sx={{ mb: 3 }}>
           <Button
             variant="contained"
             color="secondary"
@@ -87,7 +87,7 @@ export default function List() {
         </Grid>
 
         {Array.isArray(list) && list.length > 0 ? (
-          <Grid container spacing={3}>
+          <Grid container spacing={3} sx={{display:"flex",justifyContent:"center", alignItems:"center"}}>
             {list.map((row) => (
               <Grid key={row._id}>
                 <Item>

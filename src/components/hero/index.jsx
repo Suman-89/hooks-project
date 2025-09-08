@@ -39,18 +39,16 @@ export default function HeroCarousel() {
     {
       title: "Your Daily Essentials, Made Easy.",
       subtitle: "Fast, Fresh & Hassle-Free.",
-      image: "/assets/carousel/gi_3jpg",
+      image: "/assets/carousel/gi_3.jpg",
     },
   ];
 
   return (
     <Box sx={{ position: "relative", width: "100%", overflow: "hidden" }}>
       <Slider {...settings}>
-        {Array.isArray(slides)&&slides.map((slide, index) => (
+        {slides.map((slide, index) => (
           
           <Box
-          
-          // image={image(slide.image)}
             key={index}
             sx={{
               height: { xs: "40vh", md: "60vh" },

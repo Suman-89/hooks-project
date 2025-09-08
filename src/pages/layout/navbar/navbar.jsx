@@ -16,13 +16,9 @@ import {
   ListItemIcon,
 } from "@mui/material";
 import Tooltip from "@mui/material/Tooltip";
-// import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
-import PersonAdd from "@mui/icons-material/PersonAdd";
-import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 
-import LogoutIcon from "@mui/icons-material/Logout";
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -30,9 +26,9 @@ export default function Navbar() {
   const setToken = useTokenStore((state) => state.setToken);
   const [anchorEl, setAnchorEl] = React.useState(null);
 
-
+const userToken = localStorage.getItem('token')
   const user = localStorage.getItem("user_email");
-  const user_icon = user.slice(0,1).toUpperCase();
+  // const user_icon = user.slice(0,1).toUpperCase();
 
 
   const open = Boolean(anchorEl);
@@ -96,7 +92,7 @@ export default function Navbar() {
                       aria-haspopup="true"
                       aria-expanded={open ? "true" : undefined}
                     >
-                      <Avatar sx={(color)=>({ width: 32, height: 32, backgroundColor: color.palette.success.main})}>{user_icon}</Avatar>
+                      <Avatar sx={(color)=>({ width: 32, height: 32, backgroundColor: color.palette.success.main})}>{user?user.slice(0,1).toUpperCase():''}</Avatar>
                     </IconButton>
                   </Tooltip>
                 </Box>

@@ -45,13 +45,14 @@ export default function RecipeReviewCard({ row, onDelete }) {
   return (
     <Card
       sx={{
-        maxWidth: 345,
+        maxWidth: 300,
         width: "100%",
         display: "flex",
         flexDirection: "column",
         borderRadius: 3,
         boxShadow: 3,
         overflow: "hidden",
+        margin: 0,
       }}
     >
       {/* Header */}
