@@ -10,6 +10,8 @@ import {
   Typography,
   Stack,
   CssBaseline,
+  Grid,
+  Paper,
 } from "@mui/material";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -46,10 +48,8 @@ export default function Login() {
     try {
       const response = await AxiosInstance.post(endPoints.auth.signin, formData);
       if (response.data.status === 200) {
-        // console.log(response.data.data.email);
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("user_email", response.data.data.email);
-
         toast.success(response.data.message);
         setToken();
         navigate("/cms/list");
@@ -65,126 +65,160 @@ export default function Login() {
   return (
     <>
       <CssBaseline />
-      <Box
-        sx={{
-          minHeight: "100vh",
-          backgroundColor: (theme) =>
-            theme.palette.mode === "dark"
-              ? theme.palette.background.default
-              : "#f0f2f5",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          px: 2,
-        }}
-      >
-        <Container maxWidth="sm">
-          <Box
-            sx={{
-              p: { xs: 3, sm: 4 },
-              borderRadius: 3,
-              boxShadow: 4,
-              backgroundColor: (theme) =>
-                theme.palette.mode === "dark"
-                  ? theme.palette.background.paper
-                  : "#ffffff",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
-          >
-            <Typography variant="h5" fontWeight={600} textAlign="center" mb={1}>
-              Sign In
-            </Typography>
-            <Typography
-              variant="body2"
-              textAlign="center"
-              color="text.secondary"
-              mb={3}
-            >
-              Enter your credentials to access the dashboard
-            </Typography>
-
+      <Grid container sx={{ minHeight: "100vh" }}>
+        {/* Left Panel */}
+        <Grid
+          item
+          xs={12}
+          md={6}
+          sx={{
+            background: "linear-gradient(135deg, #1e3c72, #2a5298)",
+            color: "#fff",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            px: { xs: 4, md: 8 },
+            py: 6,
+          }}
+        >
+          <Box mb={2}>
             <Box
-              component="form"
-              onSubmit={handleSubmit(onSubmit)}
-              noValidate
-              sx={{ width: "100%" }}
-            >
-              <Stack spacing={2}>
-                <FormControl fullWidth>
-                  <FormLabel>Email Address</FormLabel>
-                  <TextField
-                    {...register("email")}
-                    error={!!errors.email}
-                    helperText={errors.email?.message}
-                    autoComplete="email"
-                    variant="outlined"
-                    fullWidth
-                  />
-                </FormControl>
-
-                <FormControl fullWidth>
-                  <FormLabel>Password</FormLabel>
-                  <TextField
-                    {...register("password")}
-                    type={passwordType}
-                    error={!!errors.password}
-                    helperText={errors.password?.message}
-                    autoComplete="current-password"
-                    variant="outlined"
-                    fullWidth
-                  />
-                </FormControl>
-
-                <Box display="flex" justifyContent="space-between" alignItems="center">
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        onClick={() =>
-                          setPasswordType((prev) =>
-                            prev === "password" ? "text" : "password"
-                          )
-                        }
-                      />
-                    }
-                    label="Show Password"
-                  />
-                  <Link to="/auth/register" style={{ textDecoration: "none" }}>
-                    <Typography
-                      variant="body2"
-                      sx={{
-                        color: "primary.main",
-                        textDecoration: "none",
-                        "&:hover": {
-                          color: "secondary.main",
-                          textDecoration: "underline",
-                        },
-                      }}
-                    >
-                      Create Account
-                    </Typography>
-                  </Link>
-                </Box>
-
-                <Button
-                  type="submit"
-                  variant="contained"
-                  fullWidth
-                  disabled={isSubmitting}
-                  sx={{
-                    py: 1.5,
-                    fontWeight: 600,
-                    textTransform: "none",
-                  }}
-                >
-                  {isSubmitting ? "Signing in..." : "Sign In"}
-                </Button>
-              </Stack>
-            </Box>
+              component="img"
+              src="/assets/logo/new.png"
+              alt="Logo"
+              sx={{ height: 100 }}
+            />
           </Box>
-        </Container>
-      </Box>
+          <Typography variant="h5" gutterBottom>
+            Welcome to...
+          </Typography>
+          <Typography variant="body1" sx={{ maxWidth: 400 }}>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          </Typography>
+          <Box mt={4}>
+            <Typography variant="caption">
+              Lorem ipsum dolor sit amet.
+            </Typography>
+          </Box>
+        </Grid>
+
+        {/* Right Panel */}
+        <Grid
+          item
+          xs={12}
+          md={6}
+          component={Paper}
+          elevation={4}
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            px: 4,
+            py: 6,
+            minHeight: "100vh",
+          }}
+        >
+          <Container maxWidth="sm">
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              <Typography variant="h5" fontWeight={600} textAlign="center" mb={1}>
+                Login
+              </Typography>
+              <Typography
+                variant="body2"
+                textAlign="center"
+                color="text.secondary"
+                mb={3}
+              >
+                Welcome! Login to get amazing discounts and offers only for you.
+              </Typography>
+
+              <Box
+                component="form"
+                onSubmit={handleSubmit(onSubmit)}
+                noValidate
+                sx={{ width: "100%" }}
+              >
+                <Stack spacing={2}>
+                  <FormControl fullWidth>
+                    <FormLabel>Email Address</FormLabel>
+                    <TextField
+                      {...register("email")}
+                      error={!!errors.email}
+                      helperText={errors.email?.message}
+                      autoComplete="email"
+                      variant="outlined"
+                      fullWidth
+                    />
+                  </FormControl>
+
+                  <FormControl fullWidth>
+                    <FormLabel>Password</FormLabel>
+                    <TextField
+                      {...register("password")}
+                      type={passwordType}
+                      error={!!errors.password}
+                      helperText={errors.password?.message}
+                      autoComplete="current-password"
+                      variant="outlined"
+                      fullWidth
+                    />
+                  </FormControl>
+
+                  <Box display="flex" justifyContent="space-between" alignItems="center">
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          onClick={() =>
+                            setPasswordType((prev) =>
+                              prev === "password" ? "text" : "password"
+                            )
+                          }
+                        />
+                      }
+                      label="Show Password"
+                    />
+                    <Link to="/auth/register" style={{ textDecoration: "none" }}>
+                      <Typography
+                        variant="body2"
+                        sx={{
+                          color: "primary.main",
+                          textDecoration: "none",
+                          "&:hover": {
+                            color: "secondary.main",
+                            textDecoration: "underline",
+                          },
+                        }}
+                      >
+                        Create Account
+                      </Typography>
+                    </Link>
+                  </Box>
+
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    fullWidth
+                    disabled={isSubmitting}
+                    sx={{
+                      py: 1.5,
+                      fontWeight: 600,
+                      textTransform: "none",
+                    }}
+                  >
+                    {isSubmitting ? "Signing in..." : "Sign In"}
+                  </Button>
+                </Stack>
+              </Box>
+            </Box>
+          </Container>
+        </Grid>
+      </Grid>
     </>
   );
 }
