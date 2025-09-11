@@ -66,7 +66,6 @@ export default function Navbar() {
                 sx={{ height: 100 }}
               />
             </Typography>
-
             <Box sx={{ display: "flex", gap: 2 }}>
               <Button color="inherit" component={Link} to="/cms/list">
                 Home
@@ -85,12 +84,12 @@ export default function Navbar() {
                     <IconButton
                       onClick={handleClick}
                       size="small"
-                      sx={{ ml: 2}}
+                      sx={{ ml: 2 }}
                       aria-controls={open ? "account-menu" : undefined}
                       aria-haspopup="true"
                       aria-expanded={open ? "true" : undefined}
                     >
-                      <Avatar sx={(color)=>({ width: 32, height: 32, backgroundColor: color.palette.success.main})}>{user?user.slice(0,1).toUpperCase():''}</Avatar>
+                      <Avatar sx={(color) => ({ width: 32, height: 32, backgroundColor: color.palette.secondary.main, color: color.palette.primary.main })}>{user ? user.slice(0, 1).toUpperCase() : ''}</Avatar>
                     </IconButton>
                   </Tooltip>
                 </Box>
@@ -131,14 +130,14 @@ export default function Navbar() {
                   transformOrigin={{ horizontal: "right", vertical: "top" }}
                   anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
                 >
-                  <MenuItem onClick={()=>navigate("/auth/profile")}>
+                  <MenuItem onClick={() => navigate("/auth/profile")}>
                     <Avatar /> Profile
                   </MenuItem>
                   {/* <MenuItem onClick={handleClose}>
                     <Avatar /> My account
                   </MenuItem> */}
                   <Divider />
-                  <MenuItem onClick={()=>navigate("/cms/cart")}>
+                  <MenuItem onClick={() => navigate("/cms/cart")}>
                     <ListItemIcon>
                       <ShoppingCartCheckoutIcon />
                     </ListItemIcon>

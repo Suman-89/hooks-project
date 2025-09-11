@@ -91,15 +91,15 @@ export default function Login() {
               sx={{ height: 100 }}
             />
           </Box>
-          <Typography variant="h5" gutterBottom>
-            Welcome to...
+          <Typography variant="h3" gutterBottom fontWeight={400}>
+            Welcome
           </Typography>
-          <Typography variant="body1" sx={{ maxWidth: 400 }}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          <Typography variant="h6" sx={{ maxWidth: 400 }}>
+            Please login to My Grocery Connection.
           </Typography>
           <Box mt={4}>
             <Typography variant="caption">
-              Lorem ipsum dolor sit amet.
+              It's no chore, It's at your door
             </Typography>
           </Box>
         </Grid>
@@ -192,12 +192,12 @@ export default function Login() {
                           color: "primary.main",
                           textDecoration: "none",
                           "&:hover": {
-                            color: "secondary.main",
+                            color: "#061242a0",
                             textDecoration: "underline",
                           },
                         }}
                       >
-                        Create Account
+                        Not registered ? Go to Sign up
                       </Typography>
                     </Link>
                   </Box>

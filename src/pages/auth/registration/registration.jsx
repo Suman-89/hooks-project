@@ -121,10 +121,10 @@ export default function Registration() {
                       <Typography
                         variant="caption"
                         sx={{
-                          color: "primary.main",
+                          color: "secondary.main",
                           textDecoration: "none",
                           "&:hover": {
-                            color: "secondary.main",
+                            color: "#8fb3f786",
                             textDecoration: "underline",
                           },
                         }}

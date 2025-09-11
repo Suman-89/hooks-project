@@ -78,9 +78,9 @@ export default function List() {
         <Grid container justifyContent="center" sx={{ mb: 3 }}>
           <Button
             variant="contained"
-            color="secondary"
+            color="primary"
             href="/cms/create"
-            sx={{ px: 3, py: 1.5 }}
+            sx={(color)=>({ px: 3, py: 1.5, color:color.palette.secondary.main })}
           >
             Add New Item
           </Button>

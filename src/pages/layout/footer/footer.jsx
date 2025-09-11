@@ -9,10 +9,15 @@ export default function Footer() {
       <Grid container spacing={4} maxWidth="lg" sx={{ mx: "auto", px: 2 }}>
         {/* Brand Info */}
         <Grid >
-          <Typography variant="h6" sx={{ color: "secondary.main", mb: 1 }}>
-            My Shop
+          <Typography variant="h6" component="div">
+            <Box
+              component="img"
+              src="/assets/logo/new.png"
+              alt="Logo"
+              sx={{ height: 60 }}
+            />
           </Typography>
-          <Typography variant="body2" color="grey.400">
+          <Typography variant="body2" color="grey.500">
             The best place to buy amazing products. Quality guaranteed.
           </Typography>
         </Grid>
@@ -23,16 +28,16 @@ export default function Footer() {
             Quick Links
           </Typography>
           <Box sx={{ display: "flex", flexDirection: "column", gap: 0.5 }}>
-            <Link href="/" underline="hover" color="inherit" variant="body2">
+            <Link href="/cms/list" underline="hover" color="secondary" variant="body2">
               Home
             </Link>
-            <Link href="/products" underline="hover" color="inherit" variant="body2">
+            <Link href="/cms/list" underline="hover" color="secondary" variant="body2">
               Products
             </Link>
-            <Link href="/about" underline="hover" color="inherit" variant="body2">
+            <Link href="/cms/list" underline="hover" color="secondary" variant="body2">
               About Us
             </Link>
-            <Link href="/contact" underline="hover" color="inherit" variant="body2">
+            <Link href="/cms/list" underline="hover" color="secondary" variant="body2">
               Contact
             </Link>
           </Box>
@@ -43,9 +48,9 @@ export default function Footer() {
           <Typography variant="subtitle1" sx={{ fontWeight: "bold", mb: 1 }}>
             Contact
           </Typography>
-          <Typography variant="body2" color="grey.400">📍 123 Market Street, Mumbai, India</Typography>
-          <Typography variant="body2" color="grey.400">📞 +91 98765 43210</Typography>
-          <Typography variant="body2" color="grey.400">✉ support@myshop.com</Typography>
+          <Typography variant="body2" color="grey.500">📍 123 Market Street, Mumbai, India</Typography>
+          <Typography variant="body2" color="grey.500">📞 +91 98765 43210</Typography>
+          <Typography variant="body2" color="grey.500">✉ support@myshop.com</Typography>
         </Grid>
 
         {/* Socials */}
@@ -71,10 +76,10 @@ export default function Footer() {
       </Grid>
 
       {/* Bottom Section */}
-      <Divider sx={{ bgcolor: "grey.700", mt: 3 }} />
+      <Divider sx={{ bgcolor: "grey.600", mt: 3 }} />
       <Box sx={{ textAlign: "center", py: 2 }}>
         <Typography variant="body2" color="grey.500">
-          © {new Date().getFullYear()} My Shop. All Rights Reserved.
+          © {new Date().getFullYear()} The Grocery Connection. All Rights Reserved.
         </Typography>
       </Box>
     </Box>

@@ -65,7 +65,7 @@ export default function RecipeReviewCard({ row, onDelete }) {
       {/* Header */}
       <CardHeader
         avatar={
-          <Avatar sx={{ bgcolor: "primary.main" }} aria-label="item">
+          <Avatar sx={{ bgcolor: "primary.main", color:"secondary.main" }} aria-label="item">
             {row.title?.charAt(0).toUpperCase()}
           </Avatar>
         }
@@ -108,12 +108,6 @@ export default function RecipeReviewCard({ row, onDelete }) {
         >
           {row.description}
         </Typography>
-
-        {/* <Box mt={2}>
-          <Typography variant="h6" fontWeight={700} color="primary">
-            ₹ {row.price}
-          </Typography>
-        </Box> */}
       </CardContent>
 
       {/* Actions */}
