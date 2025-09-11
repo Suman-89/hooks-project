@@ -10,6 +10,8 @@ import {
   Avatar,
   Stack,
   CssBaseline,
+  Grid,
+  Paper,
 } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
@@ -17,7 +19,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import axios from "axios";
 import { toast } from "react-toastify";
-import UploadFileIcon from '@mui/icons-material/UploadFile';
+import UploadFileIcon from "@mui/icons-material/UploadFile";
 
 const schema = yup.object().shape({
   first_name: yup.string().required("First name is required"),
@@ -26,14 +28,14 @@ const schema = yup.object().shape({
   password: yup.string().min(3, "At least 3 chars").required("Password is required"),
   profile_pic: yup
     .mixed()
-    .test("fileExist", "Profile picture is required", v => v && v.length > 0),
+    .test("fileExist", "Profile picture is required", (v) => v && v.length > 0),
 });
 
 export default function Registration() {
   const [preview, setPreview] = useState(null);
   const [passwordType, setPasswordType] = useState("password");
-
   const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -43,7 +45,6 @@ export default function Registration() {
     resolver: yupResolver(schema),
   });
 
-  // Preview uploaded image
   useEffect(() => {
     const fileList = watch("profile_pic");
     if (fileList && fileList.length) {
@@ -81,181 +82,194 @@ export default function Registration() {
   return (
     <>
       <CssBaseline />
-      <Box
-        sx={{
-          minHeight: "100vh",
-          backgroundColor: "#f0f2f5",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          px: 2,
-        }}
-      >
-        <Container maxWidth="sm">
-          <Box
-            sx={{
-              p: { xs: 3, sm: 4 },
-              borderRadius: 3,
-              boxShadow: 4,
-              backgroundColor: "#fff",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
-          >
-            <Typography variant="h5" fontWeight={600} textAlign="center" mb={1}>
-              Create Account
-            </Typography>
-            <Typography
-              variant="body2"
-              textAlign="center"
-              color="text.secondary"
-              mb={3}
-            >
-              Fill in your details to register
-            </Typography>
-
+      <Grid container sx={{ minHeight: "100vh", display: "flex", justifyContent: "center" }}>
+        {/* Left Panel */}
+        <Grid
+          item
+          xs={12}
+          md={6}
+          sx={{
+            background: "linear-gradient(135deg, #000000ff, #2a5298)",
+            color: "#fff",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: { xs: "center", md: "flex-start" },
+            textAlign: { xs: "center", md: "left" },
+            px: { xs: 4, md: 8 },
+            py: 6,
+          }}
+        >
+          <Box mb={2}>
             <Box
-              component="form"
-              onSubmit={handleSubmit(onSubmit)}
-              noValidate
-              sx={{ width: "100%" }}
-            >
-              <Stack spacing={2}>
-                {/** All TextFields are now size="small" & margin="dense" **/}
-                <TextField
-                  fullWidth
-                  size="small"
-                  margin="dense"
-                  label="First Name"
-                  {...register("first_name")}
-                  error={!!errors.first_name}
-                  helperText={errors.first_name?.message}
-                />
-                <TextField
-                  fullWidth
-                  size="small"
-                  margin="dense"
-                  label="Last Name"
-                  {...register("last_name")}
-                  error={!!errors.last_name}
-                  helperText={errors.last_name?.message}
-                />
-                <TextField
-                  fullWidth
-                  size="small"
-                  margin="dense"
-                  label="Email Address"
-                  {...register("email")}
-                  error={!!errors.email}
-                  helperText={errors.email?.message}
-                  autoComplete="email"
-                />
-                <TextField
-                  fullWidth
-                  size="small"
-                  margin="dense"
-                  label="Password"
-                  type={passwordType}
-                  {...register("password")}
-                  error={!!errors.password}
-                  helperText={errors.password?.message}
-                  autoComplete="new-password"
-                />
+              component="img"
+              src="/assets/logo/new.png"
+              alt="Logo"
+              sx={{ height: { xs: 60, md: 100 } }}
+            />
+          </Box>
+          <Typography variant="h5" gutterBottom>
+            Join Us Today
+          </Typography>
+          <Typography variant="body1" sx={{ maxWidth: 400 }}>
+            Create your account to unlock exclusive features, discounts, and personalized content.
+          </Typography>
+          <Box mt={4}>
+            <Typography variant="caption">
+              Already have an account?
+              <Link to="/" style={{ textDecoration: "none", marginLeft:3 }}>
+                      <Typography
+                        variant="caption"
+                        sx={{
+                          color: "primary.main",
+                          textDecoration: "none",
+                          "&:hover": {
+                            color: "secondary.main",
+                            textDecoration: "underline",
+                          },
+                        }}
+                      >
+                        Back to Login
+                      </Typography>
+                    </Link>
+            </Typography>
+          </Box>
+        </Grid>
 
-                <input
-                  type="file"
-                  accept="image/*"
-                  {...register("profile_pic")}
-                  id="profile-upload"
-                  style={{ display: "none" }}
-                />
-                <label htmlFor="profile-upload">
-                  <Button
-                    variant="outlined"
-                    color="primary"
-                    component="span"
+        {/* Right Panel */}
+        <Grid
+          item
+          xs={12}
+          md={6}
+          component={Paper}
+          elevation={4}
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            px: { xs: 4, sm: 10 },
+            py: { xs: 4, sm: 6 },
+          }}
+        >
+          <Container maxWidth="sm">
+            <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+              <Typography variant="h5" fontWeight={600} textAlign="center" mb={1}>
+                Create Account
+              </Typography>
+              <Typography variant="body2" textAlign="center" color="text.secondary" mb={3}>
+                Fill in your details to register
+              </Typography>
+
+              <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate sx={{ width: "100%" }}>
+                <Stack spacing={2}>
+                  <TextField
                     fullWidth
-                    sx={{ textTransform: "none", mt: 1 }}
-                  >
-                    <UploadFileIcon />
-                    Upload Profile Picture
-                  </Button>
-                </label>
-                {errors.profile_pic && (
-                  <Typography color="error" variant="body2">
-                    {errors.profile_pic.message}
-                  </Typography>
-                )}
+                    size="small"
+                    margin="dense"
+                    label="First Name"
+                    {...register("first_name")}
+                    error={!!errors.first_name}
+                    helperText={errors.first_name?.message}
+                  />
+                  <TextField
+                    fullWidth
+                    size="small"
+                    margin="dense"
+                    label="Last Name"
+                    {...register("last_name")}
+                    error={!!errors.last_name}
+                    helperText={errors.last_name?.message}
+                  />
+                  <TextField
+                    fullWidth
+                    size="small"
+                    margin="dense"
+                    label="Email Address"
+                    {...register("email")}
+                    error={!!errors.email}
+                    helperText={errors.email?.message}
+                    autoComplete="email"
+                  />
+                  <TextField
+                    fullWidth
+                    size="small"
+                    margin="dense"
+                    label="Password"
+                    type={passwordType}
+                    {...register("password")}
+                    error={!!errors.password}
+                    helperText={errors.password?.message}
+                    autoComplete="new-password"
+                  />
 
-                <Box display="flex" justifyContent="center" mt={2}>
-                  {preview ? (
-                    <Avatar
-                      src={preview}
-                      alt="Profile Preview"
-                      sx={{ width: 80, height: 80 }}
-                    />
-                  ) : (
-                    <Typography variant="body2" color="text.secondary">
-                      No image selected
+                  <input
+                    type="file"
+                    accept="image/*"
+                    {...register("profile_pic")}
+                    id="profile-upload"
+                    style={{ display: "none" }}
+                  />
+                  <label htmlFor="profile-upload">
+                    <Button
+                      variant="outlined"
+                      color="primary"
+                      component="span"
+                      fullWidth
+                      sx={{ textTransform: "none", mt: 1 }}
+                    >
+                      <UploadFileIcon />
+                      Upload Profile Picture
+                    </Button>
+                  </label>
+                  {errors.profile_pic && (
+                    <Typography color="error" variant="body2">
+                      {errors.profile_pic.message}
                     </Typography>
                   )}
-                </Box>
 
-                <Box
-                  display="flex"
-                  justifyContent="space-between"
-                  alignItems="center"
-                >
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        onClick={() =>
-                          setPasswordType((prev) => (prev === "password" ? "text" : "password"))
-                        }
-                      />
-                    }
-                    label="Show Password"
-                  />
-                  <Link to="/" style={{ textDecoration: "none" }}>
-                    <Typography
-                      variant="body2"
-                      // component={RouterLink}
-                      to="/"
-                      sx={{
-                        color: "primary.main",            // default text color
-                        textDecoration: "none",           // remove underline
-                        "&:hover": {
-                          color: "secondary.main",        // on hover, use secondary color
-                          textDecoration: "underline",    // optional hover decoration
-                        },
-                      }}
-                    >
-                      Back to Login
-                    </Typography>
-                  </Link>
-                </Box>
+                  <Box display="flex" justifyContent="center" mt={2}>
+                    {preview ? (
+                      <Avatar src={preview} alt="Profile Preview" sx={{ width: 80, height: 80 }} />
+                    ) : (
+                      <Typography variant="body2" color="text.secondary">
+                        No image selected
+                      </Typography>
+                    )}
+                  </Box>
 
-                <Button
-                  type="submit"
-                  variant="contained"
-                  fullWidth
-                  disabled={isSubmitting}
-                  sx={{
-                    py: 1.25,
-                    fontWeight: 600,
-                    textTransform: "none",
-                    backgroundColor: "primary",
-                    ":hover": { backgroundColor: "secondary" },
-                  }}
-                >
-                  {isSubmitting ? "Registering..." : "Register"}
-                </Button>
-              </Stack>
+                  <Box display="flex" justifyContent="space-between" alignItems="center">
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          onClick={() =>
+                            setPasswordType((prev) => (prev === "password" ? "text" : "password"))
+                          }
+                        />
+                      }
+                      label="Show Password"
+                    />
+                    
+                  </Box>
+
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    fullWidth
+                    disabled={isSubmitting}
+                    sx={{
+                      py: 1.25,
+                      fontWeight: 600,
+                      textTransform: "none",
+                    }}
+                  >
+                    {isSubmitting ? "Registering..." : "Register"}
+                  </Button>
+                </Stack>
+              </Box>
             </Box>
-          </Box>
-        </Container>
-      </Box>
+          </Container>
+        </Grid>
+      </Grid>
     </>
   );
 }

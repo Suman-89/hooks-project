@@ -65,16 +65,16 @@ export default function Login() {
   return (
     <>
       <CssBaseline />
-      <Grid container sx={{ minHeight: "100vh",display: "flex",
-            // flexDirection: "column",
-            justifyContent: "center", }}>
+      <Grid container sx={{
+        minHeight: "100vh", display: "flex", justifyContent: "center"
+      }}>
         {/* Left Panel */}
         <Grid
           item
           xs={12}
           md={6}
           sx={{
-            background: "linear-gradient(135deg, #1e3c72, #2a5298)",
+            background: "linear-gradient(135deg, #000000ff, #2a5298)",
             color: "#fff",
             display: "flex",
             flexDirection: "column",
