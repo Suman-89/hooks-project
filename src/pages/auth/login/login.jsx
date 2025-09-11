@@ -65,7 +65,9 @@ export default function Login() {
   return (
     <>
       <CssBaseline />
-      <Grid container sx={{ minHeight: "100vh" }}>
+      <Grid container sx={{ minHeight: "100vh",display: "flex",
+            // flexDirection: "column",
+            justifyContent: "center", }}>
         {/* Left Panel */}
         <Grid
           item

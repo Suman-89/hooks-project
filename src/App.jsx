@@ -9,6 +9,7 @@ import {
 import Navbar from "./pages/layout/navbar/navbar";
 import Layout from "./pages/layout/layout";
 import HeroCarousel from "./components/hero";
+import CircularWithValueLabel from "./components/loader";
 const Login = React.lazy(() => import("./pages/auth/login/login"));
 const Registration = React.lazy(() =>
   import("../src/pages/auth/registration/registration")
@@ -73,7 +74,12 @@ function App() {
 
   return (
     <>
-      <Suspense fallback={<h3>Loading...</h3>}>
+        {/* <div style={{display:'flex', alignItems:'center', justifyContent:'center'}}> */}
+
+      <Suspense fallback={
+        // <h2>Loading ... </h2>
+        <CircularWithValueLabel/>
+        }>
         <Router>
           <Layout>
             <Routes>
@@ -96,6 +102,8 @@ function App() {
           </Layout>
         </Router>
       </Suspense>
+        {/* </div> */}
+
     </>
   );
 }
